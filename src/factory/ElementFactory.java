@@ -4,7 +4,6 @@ import element.Element;
 import element.List;
 import element.Paragraph;
 import element.Title;
-import main.ElementType;
 
 public class ElementFactory {
 
@@ -14,7 +13,7 @@ public class ElementFactory {
 	 * @param content
 	 * @return
 	 */
-	public static Element createElement(ElementType e, String content) {
+	public static Element create(ElementType e, String content) {
 
 		switch (e) {
 		case TITLE:

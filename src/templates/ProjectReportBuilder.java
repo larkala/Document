@@ -1,54 +1,58 @@
 package templates;
 
 import element.Document;
+import element.Element;
 import element.List;
-import element.Paragraph;
-import element.Title;
+import factory.ElementFactory;
+import factory.ElementType;
 
 public class ProjectReportBuilder implements DocumentBuilder{
 
 	Document projectreport = new Document();
-	private Title reportTitle = new Title("Project Report");
-	private Title introductionTitle = new Title("Introduction");
-	private Paragraph introduction = new Paragraph("not set");
-	private Title resultTitle = new Title("Result");
-	private Paragraph result = new Paragraph("not set");
-	private Title referenceTitle = new Title("References");
-	private List references = new List();
-	
+	private Element reportTitle = ElementFactory.create(ElementType.TITLE, "Project Report");
+	private Element introductionTitle = ElementFactory.create(ElementType.TITLE, "Introduction");
+	private Element introduction = ElementFactory.create(ElementType.PARAGRAPH, "not set");
+	private Element resultTitle = ElementFactory.create(ElementType.TITLE, "Result");
+	private Element result = ElementFactory.create(ElementType.PARAGRAPH, "not set");
+	private Element referenceTitle = ElementFactory.create(ElementType.TITLE, "References");
+	private List references = (List) ElementFactory.create(ElementType.LIST, "no references");
+
 	public ProjectReportBuilder withTitle(String reportTitle) {
-		this.reportTitle = new Title(reportTitle);
+		this.reportTitle = ElementFactory.create(ElementType.TITLE, reportTitle);
 		return this;
 	}
 
 
 	public ProjectReportBuilder withIntroductionTitle(String introductionTitle) {
-		this.introductionTitle = new Title(introductionTitle);
+		this.introductionTitle = this.reportTitle = ElementFactory.create(ElementType.TITLE, introductionTitle);
 		return this;
 	}
 
 	public ProjectReportBuilder withIntroduction(String introduction) {
-		this.introduction = new Paragraph(introduction);
+		this.introduction = ElementFactory.create(ElementType.PARAGRAPH, introduction);
 		return this;
 	}
 
 	public ProjectReportBuilder withResultTitle(String resultTitle) {
-		this.resultTitle = new Title(resultTitle);
+		this.resultTitle = ElementFactory.create(ElementType.TITLE, resultTitle);
 		return this;
 	}
 
 	public ProjectReportBuilder withResult(String result) {
-		this.result = new Paragraph(result);
+		this.result = ElementFactory.create(ElementType.PARAGRAPH, result);
 		return this;
 	}
 
 	public ProjectReportBuilder withReferenceTitle(String referenceTitle) {
-		this.referenceTitle = new Title(referenceTitle);
+		this.referenceTitle = ElementFactory.create(ElementType.TITLE, referenceTitle);
 		return this;
 	}
 
 	public ProjectReportBuilder addReference(String reference) {
-		this.references.add(new Paragraph(reference));
+		if(references.get(0).getContent().equals("no references"))
+			references = (List) ElementFactory.create(ElementType.LIST, "no references");
+		else 
+			this.references.add(ElementFactory.create(ElementType.PARAGRAPH, reference));
 		return this;
 	}
 
@@ -62,7 +66,7 @@ public class ProjectReportBuilder implements DocumentBuilder{
 		projectreport.add(referenceTitle);
 		projectreport.add(references);
 	}
-	
+
 	@Override
 	public Document getResult() {
 		return projectreport;
