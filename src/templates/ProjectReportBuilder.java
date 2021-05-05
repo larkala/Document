@@ -15,8 +15,9 @@ public class ProjectReportBuilder implements DocumentBuilder{
 	private Element resultTitle = ElementFactory.create(ElementType.TITLE, "Result");
 	private Element result = ElementFactory.create(ElementType.PARAGRAPH, "not set");
 	private Element referenceTitle = ElementFactory.create(ElementType.TITLE, "References");
-	private List references = (List) ElementFactory.create(ElementType.LIST, "no references");
-
+	private Element references = ElementFactory.create(ElementType.LIST, "no references");
+	private boolean referenceHasBeenAdded = false;
+	
 	public ProjectReportBuilder withTitle(String reportTitle) {
 		this.reportTitle = ElementFactory.create(ElementType.TITLE, reportTitle);
 		return this;
@@ -49,22 +50,24 @@ public class ProjectReportBuilder implements DocumentBuilder{
 	}
 
 	public ProjectReportBuilder addReference(String reference) {
-		if(references.get(0).getContent().equals("no references"))
-			references = (List) ElementFactory.create(ElementType.LIST, "no references");
+		if(!referenceHasBeenAdded) {
+			referenceHasBeenAdded = true;
+			references = (List) ElementFactory.create(ElementType.LIST, reference);
+		}
 		else 
-			this.references.add(ElementFactory.create(ElementType.PARAGRAPH, reference));
+			this.references.addContent(ElementFactory.create(ElementType.PARAGRAPH, reference));
 		return this;
 	}
 
 	@Override
 	public void build() {
-		projectreport.add(reportTitle);
-		projectreport.add(introductionTitle);
-		projectreport.add(introduction);
-		projectreport.add(resultTitle);
-		projectreport.add(result);
-		projectreport.add(referenceTitle);
-		projectreport.add(references);
+		projectreport.addContent(reportTitle);
+		projectreport.addContent(introductionTitle);
+		projectreport.addContent(introduction);
+		projectreport.addContent(resultTitle);
+		projectreport.addContent(result);
+		projectreport.addContent(referenceTitle);
+		projectreport.addContent(references);
 	}
 
 	@Override

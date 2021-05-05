@@ -4,6 +4,7 @@ import element.Element;
 import element.List;
 import element.Paragraph;
 import element.Title;
+import exceptions.ElementException;
 
 public class ElementFactory {
 
@@ -23,11 +24,11 @@ public class ElementFactory {
 		case LIST:
 			List li = new List();
 			Paragraph p = new Paragraph(content);
-			li.add(p);
+			li.addContent(p);
 			return li;
 		//It's never going to reach this case since syntax won't allow it. But just in case!
 		default:
-			throw new RuntimeException("Please enter a valid ElementType. The following are valid ElementTypes: \n" + java.util.Arrays.asList(ElementType.values()));
+			throw new ElementException("Please enter a valid ElementType. The following are valid ElementTypes: \n" + java.util.Arrays.asList(ElementType.values()));
 		}
 
 	}

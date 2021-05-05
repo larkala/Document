@@ -1,6 +1,6 @@
 package element;
 
-public class Paragraph implements Element<String>{
+public class Paragraph extends Element<String, String>{
 
 	private String content;
 	
@@ -8,6 +8,12 @@ public class Paragraph implements Element<String>{
 		this.content = content;
 	}
 	
+	@Override 
+	public void addContent(String content) {
+		this.content = content;
+	}
+	
+	@Override
 	public String getContent() {
 		return content;
 	}
@@ -16,10 +22,5 @@ public class Paragraph implements Element<String>{
 	public void print() {
 		System.out.println("<p>" + content + "</p>");
 	}
-
-	public void editContent(String content) {
-		this.content = content;
-	}
-
 
 }

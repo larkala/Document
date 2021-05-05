@@ -1,6 +1,6 @@
 package element;
 
-public class Title implements Element<String>{ 
+public class Title extends Element<String, String>{ 
 
 	private String content;
 	
@@ -18,7 +18,8 @@ public class Title implements Element<String>{
 		System.out.println("<t>" + content + "</t>");
 	}
 	
-	public void editContent(String content) {
+	@Override
+	public void addContent(String content) {
 		this.content = content;
 	}
 

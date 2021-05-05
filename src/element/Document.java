@@ -3,7 +3,7 @@ package element;
 import java.util.ArrayList;
 
 @SuppressWarnings("rawtypes")
-public class Document implements Element<ArrayList<Element>>{
+public class Document extends Element<ArrayList<Element>, Element>{
 
 	private ArrayList<Element> document = new ArrayList<>();
 
@@ -23,11 +23,13 @@ public class Document implements Element<ArrayList<Element>>{
 		System.out.println("#### DOCUMENT END ####");
 	}
 	
-	public Element get(int i) {
+	@Override
+	public Element getContent(int i) {
 		return document.get(i);
 	}
 
-	public void add(Element e) {
+	@Override
+	public void addContent(Element e) {
 		document.add(e);
 	}
 	
