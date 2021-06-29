@@ -12,8 +12,9 @@ public class ElementFactory {
 	 * Creates and returns an element. If a list is selected as the element, the content will be added as the first element of the list as a paragraph.
 	 * @param e ElementType. 
 	 * @param content
-	 * @return
+	 * @return the element containing given string
 	 */
+	@SuppressWarnings("rawtypes")
 	public static Element create(ElementType e, String content) {
 
 		switch (e) {
